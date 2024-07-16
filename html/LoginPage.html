@@ -1,0 +1,103 @@
+<!--Date: June 27, 2024
+    Description: Front-end of the Login Page for the Project
+    Comments of F Developer:  /* Adjust as needed */ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            text-align: center;
+            width: 300px;
+            margin-top: -85px;
+        }
+
+        .login-heading {
+            font-size: 2em;
+            margin-bottom: 40px;
+        }
+
+        .login-input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #E0E0E0;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .remember-checkbox {
+            margin-right: 5px;
+            vertical-align: middle;
+            border-color: #3F51B5;
+        }
+
+        .forgot-password {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3F51B5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .login-button:hover {
+            background-color: #5A4ABD;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1 class="login-heading">LOGIN</h1>
+        <form class="login-form" action="../php/verify.php" method="POST">
+            <input type="text" name="username" class="login-input" placeholder="Username" required>
+            <input type="password" name="password" class="login-input" placeholder="Password" required>
+            <div class="login-options">
+                <label class="remember-me">
+                    <input type="checkbox" class="remember-checkbox">
+                    Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot?</a>
+            </div>
+            <button type="submit" class="login-button">LOGIN</button>
+        </form>
+    </div>
+</body>
+</html>
