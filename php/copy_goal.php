@@ -46,11 +46,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['goal_id'])) {
             echo json_encode(['error' => 'Error copying goal.']);
         }
         $stmt_copy->close();
-        */
+        *//*
         if ($stmt_copy->affected_rows > 0) {
             echo "<script>alert('Goal copied successfully.'); window.location.href = '../html/ManageGoals.php';</script>";
         } else {
             echo "<script>alert('Error copying goal.'); window.location.href = '../html/ManageGoals.php';</script>";
+        }
+        $stmt_copy->close();*/
+        if ($stmt_copy->affected_rows > 0) {
+            $message = "Goal copied successfully.";
+            $status = "success";
+        } else {
+            $message = "Error copying goal.";
+            $status = "error";
         }
         $stmt_copy->close();
         
@@ -64,3 +72,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['goal_id'])) {
 
 mysqli_close($conn);
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Copy Goal Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="modal fade" id="copyGoalModal" tabindex="-1" role="dialog" aria-labelledby="copyGoalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="copyGoalModalLabel">Copy Goal Result</h5>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-<?php echo $status; ?>" role="alert">
+                    <?php echo $message; ?>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="redirectToManageGoals()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#copyGoalModal').modal('show');
+    });
+
+    function redirectToManageGoals() {
+        window.location.href = '../html/ManageGoals.php';
+    }
+</script>
+
+</body>
+</html>
