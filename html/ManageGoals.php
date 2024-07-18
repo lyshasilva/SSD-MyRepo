@@ -319,8 +319,8 @@
         ?>
 
     </table>
-    <!-- Search Bar-->
-     
+
+    <!-- Search Bar--> 
     <script>
             document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
@@ -506,8 +506,8 @@
         });
 
         function fetchEditGoalDetails(goalId) {
-            fetch(`../php/get_goal_details.php?id=${goalId}`)
-            //fetch(`../php/view_goal.php?id=${goalId}`)
+            //fetch(`../php/get_goal_details.php?id=${goalId}`)
+            fetch(`../php/view_goal.php?id=${goalId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
