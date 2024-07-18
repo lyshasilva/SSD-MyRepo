@@ -10,8 +10,8 @@
                 - Adds a new row in the goal table in the database, contents are 
                     according to the user input
 */
-session_start();
-
+//session_start();
+include 'anti-shortcut_ssd.php';
 include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

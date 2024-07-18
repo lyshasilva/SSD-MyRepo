@@ -8,7 +8,8 @@
                 -fetchES unarchived goals under the user's department from previous years
 
 */
-
+// Database connection
+include('db.php');
             
 
             $sql = "SELECT id, title, initiative, targets, total_budget FROM goal WHERE archived IS NULL AND department = ? AND year < ? ORDER BY year DESC";

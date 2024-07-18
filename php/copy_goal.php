@@ -12,7 +12,8 @@ Description: COPY FEATURE
 
 
 include('db.php');
-session_start();
+include('anti-shortcut_ssd.php');
+//session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['goal_id'])) {
     // Retrieve goal_id from POST data

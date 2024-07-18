@@ -15,6 +15,7 @@
                 - stores the current year to $current_year
                 - used to autofill the Year input field in the Create New Goal Modal
 */
+//session_start();
 $userId = $_SESSION['user_id'];
 
 // Database connection

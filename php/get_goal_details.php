@@ -15,7 +15,7 @@
                 implemented in the view_goal.php. Therefore, this file can be safely deleted
 
 */
-include('db.php');
+//include('db.php');
 
 if (isset($_GET['id'])) {
     $goal_id = intval($_GET['id']);
