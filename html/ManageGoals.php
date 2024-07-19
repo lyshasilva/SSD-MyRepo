@@ -429,8 +429,8 @@
     </script>
 
 
-<!-- Archive Confirmation Modal -->
-<div id="archiveModal" class="modal">
+<!-- Archive Confirmation Modal-->
+<div id="archiveModal" class="modal" style="display:none;">
     <div class="modal-content">
         <h2>Confirm Archiving</h2>
         <p>Are you sure you want to archive this goal?</p>
@@ -439,39 +439,70 @@
     </div>
 </div>
 
-    <script>
-        let currentForm = null;
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        function confirmArchive(event) {
-            event.preventDefault(); // Prevent form submission
-            currentForm = event.target.closest('form'); // Capture the form reference
-            var modal = document.getElementById("archiveModal");
-            modal.style.display = "block";
+<script>
+    $(document).ready(function() {
+        // Attach the confirmArchive function to buttons with the class 'archive-button'
+        $('.archive-button').on('click', function(event) {
+            event.preventDefault(); // Prevent default button behavior
+            
+            const goalId = $(this).data('goal-id');
+            const goalTitle = $(this).data('goal-title');
 
-            return false; // Prevent form submission
-        }
-
-        document.getElementById("confirmYes").onclick = function() {
-        if (currentForm) {
-            currentForm.submit(); // Submit the captured form
-        }
-        var modal = document.getElementById("archiveModal");
-        modal.style.display = "none";
-        };
-
-        document.getElementById("confirmNo").onclick = function() {
-            var modal = document.getElementById("archiveModal");
-            modal.style.display = "none";
-        };
-
-        // Close the modal when the user clicks outside of it
-        window.onclick = function(event) {
-            var modal = document.getElementById("archiveModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-    </script>
+            Swal.fire({
+                title: 'Confirm Archiving',
+                text: `Are you sure you want to archive this goal '${goalTitle}'?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform the AJAX request
+                    $.ajax({
+                        url: '../php/archive_goal.php', // Adjust the URL to your PHP script
+                        method: 'POST',
+                        data: {
+                            goal_id: goalId,
+                            goal_title: goalTitle
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    title: 'Archived!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    location.reload(); // Optional: Reload the page
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'There was an error archiving the goal.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 <!-- The Edit Goal Modal -->
 <div id="editGoalModal" class="modal">

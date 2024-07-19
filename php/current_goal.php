@@ -11,7 +11,9 @@
             Search Feature: July 8, 2024 3:45 PM
     Updated: 
             July 11, 2024 ADDED constraints to SEARCH so that only those unarchived records 
-                    under the user's department will be displayed      
+                    under the user's department will be displayed
+            July 19, 2028; 8:02 AM by Prinz J M. - upgraded the alert archive confirmation message
+                    to sweet alert message (ARCHIVE button)      
     Description: SEARCH FEATURE
                 -lets the user search goals using goal title, initiative, targets, or total budget
                 -outputs searches both from previous and current goals
@@ -75,10 +77,10 @@
                 echo '<td>
                         <button class="edit-button" data-goal-id="' . $row['id'] . '">Edit</button>
                         <form method="post" action="../php/archive_goal.php" style="display:inline" onsubmit="return confirmArchive(event);">
-                            <input type="hidden" name="goal_id" value="' . $row['id'] . '">
-                            <input type="hidden" name="goal_title" value="' . $row['title'] . '">
-                            <button type="submit" class="archive-button">Archive</button>
-                        </form>
+                                <input type="hidden" name="goal_id" value="' . $row['id'] . '">
+                                <input type="hidden" name="goal_title" value="' . $row['title'] . '">
+                                <button type="button" class="archive-button" data-goal-id="' . $row['id'] . '" data-goal-title="' . $row['title'] . '">Archive</button>
+                            </form>
                     </td>';
                 echo '</tr>';
                 // Alternate row class for styling

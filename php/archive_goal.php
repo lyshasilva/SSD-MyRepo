@@ -4,6 +4,7 @@ Filename: archive_goal.php
 Programmer: Lysha Silva
 Started: July 4, 2024; 4:12 PM
 Finished: July 5, 2024; 9:06 AM
+Updated: July 19, 2024; 8:02 AM by Prinz J M. - Changed the alert message to json response
 Description: ARCHIVE FEATURE
             -Back end of ARCHIVE button which removes a goal from the user's display
             -The archived data won't be erased from the database
@@ -19,17 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $goalId);
 
-    // Debugging print to check if goal_id is received
-    echo "Received goal_id: " . htmlspecialchars($goalId);
-
+    // Execute the statement and check for success
     if ($stmt->execute()) {
-        $stmt->close();
-        $conn->close();
-        echo "<script>alert('Goal " . $goalTitle . " has been successfully archived.');";
-        echo "window.location.href = '../html/ManageGoals.php';</script>";
-            exit;
+        // Send a success response back to the AJAX request
+        echo json_encode(['status' => 'success', 'message' => "Goal $goalTitle has been successfully archived."]);
     } else {
-        echo "Error: " . $stmt->error;
+        // Send an error response back to the AJAX request
+        echo json_encode(['status' => 'error', 'message' => $stmt->error]);
     }
 
     $stmt->close();

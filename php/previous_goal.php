@@ -4,6 +4,8 @@
     Programmer: Lysha Silva
     Started: July 8, 2024; 10:55 AM
     Finished: July 8, 2024; 11:01 AM
+    Updated: July 19, 2028; 8:02 AM by Prinz J M. - upgraded the alert archive confirmation message
+                     to sweet alert message (ARCHIVE button)
     Description: PREVIOUS GOALS TABLE
                 -fetchES unarchived goals under the user's department from previous years
 
@@ -39,10 +41,10 @@ include('db.php');
                                 <input type="hidden" name="goal_id" value="' . $row['id'] . '">
                                 <button type="submit" class="copy-button">Copy</button>
                             </form>
-                            <form method="post" action="../php/archive_goal.php" style="display:inline" onsubmit="return confirmArchive(event);">
+                           <form method="post" action="../php/archive_goal.php" style="display:inline" onsubmit="return confirmArchive(event);">
                                 <input type="hidden" name="goal_id" value="' . $row['id'] . '">
                                 <input type="hidden" name="goal_title" value="' . $row['title'] . '">
-                                <button type="submit" class="archive-button">Archive</button>
+                                <button type="button" class="archive-button" data-goal-id="' . $row['id'] . '" data-goal-title="' . $row['title'] . '">Archive</button>
                             </form>
                         </td>';
                     echo '</tr>';
