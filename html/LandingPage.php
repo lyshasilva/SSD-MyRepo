@@ -57,7 +57,7 @@
             }
 
             .description {
-                font-style: none;
+                font-style: italic;
                 font-family: 'Lato', sans-serif;
                 margin-top: 10px;
                 text-align: center;
@@ -95,7 +95,14 @@
                 margin-left: auto;
                 text-decoration: none;
                 color: inherit;
+                border: none;
+                background: none;
+                font-size: medium;
             }
+            .logout:hover {
+            color: #4a3bb3;
+            cursor:pointer;
+        }
         </style>
     </head>
     <body>
@@ -103,7 +110,7 @@
             <div class="header-container">
                 <h1 class="greetings">Welcome, <span id="username">User</span></h1>
                 <form method="post" class="logout">
-                    <button type="submit" name="logout" class="logout">Log Out</button>
+                    <button type="submit" name="logout" class="logout">Logout</button>
                 </form>
                 <!--<div class="logout">
                     <a href="#" class="logout">Logout</a>

@@ -48,7 +48,7 @@
             gap: 10px;
         }
 
-        .header button {
+        .pagebuttons {
             margin-left: 18px;
             padding: 10px 20px;
             border: none;
@@ -60,7 +60,7 @@
             font-size: 16px;
         }
 
-        .header button:hover {
+        .pagebuttons:hover {
             background: #D9E4F5;
             color: #4a3bb3
         }
@@ -72,6 +72,8 @@
             text-decoration: none;
             font-size: 16px;
             cursor: pointer;
+            border: none;
+            background: none;
         }
 
         .logout:hover {
@@ -226,6 +228,17 @@
             border-radius: 4px;
             background-color: white;
         }
+        .form-input-readonly {
+            width: calc(48% - 10px);
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            color: #595B9B;
+            font-weight: 600;
+        }
 
         .form-select {
             width: calc(48% - 10px);
@@ -261,9 +274,9 @@
 <body>
     <header>
         <div class="header">
-            <button onclick="location.href='ManageGoals.php'">Manage Goals</button>
-            <button onclick="location.href='ManageActionPlans.html'">Manage AP</button>
-            <button onclick="location.href='ViewReports.html'">View Reports</button>
+            <button class="pagebuttons" onclick="location.href='ManageGoals.php'">Manage Goals</button>
+            <button class="pagebuttons" onclick="location.href='ManageActionPlans.html'">Manage AP</button>
+            <button class="pagebuttons" onclick="location.href='ViewReports.html'">View Reports</button>
             <form method="post" class="logout">
                     <button type="submit" name="logout" class="logout">Log Out</button>
             </form>
@@ -357,10 +370,16 @@
         <h2>CREATE GOAL</h2>
         <form action="../php/creategoal.php" method="post">
             <input type="text" id="title" name="title" class="form-input" placeholder="Title" required>
-            <input type="number" id="year" name="year" class="form-input" placeholder="Year" value="<?php echo date('Y'); ?>" readonly required>
-            <input type="text" id="department" name="department" class="form-input" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
+            <br>
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" class="form-input-readonly" placeholder="Year" value="<?php echo date('Y'); ?>" readonly required>
+            <br>
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
             <input type="text" id="targets" name="targets" class="form-input" placeholder="Targets" required>
-            <input type="number" id="totalBudget" name="totalBudget" class="form-input" placeholder="Total Budget"  value="0" readonly required>
+            <br>
+            <label for="totalBudget">Total Budget:</label>
+            <input type="number" id="totalBudget" name="totalBudget" class="form-input-readonly" placeholder="Total Budget"  value="0" readonly required>
             <select id="initiative" name="initiative" class="form-select" required>
                 <option value="" disabled selected>Initiative</option>
                 <option value="KPI 1.1">KPI 1.1</option>
