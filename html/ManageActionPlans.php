@@ -265,9 +265,9 @@
                 <button onclick="location.href='ManageGoals.php'">Manage Goals</button>
                 <button onclick="location.href='ManageActionPlans.php'">Manage AP</button>
                 <button onclick="location.href='ViewReports.php'">View Reports</button>
-                <div class="logout">
-                    <a href="#" class="logout">Logout</a>
-                </div>
+                <form method="post" class="logout">
+                    <button type="submit" name="logout" class="logout">Log Out</button>
+            </form>
             </div>
         </header>
     
@@ -309,7 +309,7 @@
                             $user_id = $_SESSION['user_id'];
 
                             // Prepare and execute the query to fetch the user's goals
-                            $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ?");
+                            $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ? and archived IS NULL");
                             $stmt->bind_param("i", $user_id);
                             $stmt->execute();
                             $result = $stmt->get_result();
