@@ -275,8 +275,8 @@
     <header>
         <div class="header">
             <button class="pagebuttons" onclick="location.href='ManageGoals.php'">Manage Goals</button>
-            <button class="pagebuttons" onclick="location.href='ManageActionPlans.html'">Manage AP</button>
-            <button class="pagebuttons" onclick="location.href='ViewReports.html'">View Reports</button>
+            <button class="pagebuttons" onclick="location.href='ManageActionPlans.php'">Manage AP</button>
+            <button class="pagebuttons" onclick="location.href='ViewReports.php'">View Reports</button>
             <form method="post" class="logout">
                     <button type="submit" name="logout" class="logout">Log Out</button>
             </form>
@@ -463,7 +463,7 @@
                 if (result.isConfirmed) {
                     // Perform the AJAX request
                     $.ajax({
-                        url: '../php/archive_goal.php', // Adjust the URL to your PHP script
+                        url: '../php/archive_goal.php',
                         method: 'POST',
                         data: {
                             goal_id: goalId,

@@ -125,12 +125,12 @@
                     <p class="description">Track and oversee objectives aligned with mission strategies for spreading the gospel globally.</p>
                 </a>
     
-                <a href="ManageActionPlans.html" class="card" role="button" tabindex="0">
+                <a href="ManageActionPlans.php" class="card" role="button" tabindex="0">
                     <h2>Manage AP</h2>
                     <p class="description">Coordinate detailed plans to enhance spiritual growth initiatives and leadership development within the mission framework.</p>
                 </a>
     
-                <a href="ViewReports.html" class="card" role="button" tabindex="0">
+                <a href="ViewReports.php" class="card" role="button" tabindex="0">
                     <h2>View Reports</h2>
                     <p class="description">Access comprehensive reports showing the progress and outcomes in mission activities, spiritual growth endeavors, and leadership efforts.</p>
                 </a>
