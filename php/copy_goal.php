@@ -4,6 +4,7 @@ Filename: copy_goal.php
 Programmer: Lysha Silva
 Started: July 11, 2024; 1:15 PM
 Finished: July 11, 2024; 1:23 PM
+Updated: July 20, 2024; 3:45 PM by Lysha S - COPY goal success alert message upgraded to sweet alert message
 Description: COPY FEATURE
             -Back end of COPY button which lets the user copy a goal from the previous goals to the current goals.
             -It copies all of the goal's details EXCEPT for the YEAR which will be automatically set to the 

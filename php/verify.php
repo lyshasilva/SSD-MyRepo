@@ -44,9 +44,9 @@ else {
     // Invalid credentials, display error message in a dialog box
     echo '<script>';
     echo 'alert("Wrong username or password. Please try again.");';
-    //echo 'window.location.href = "../html/LogInPage.html";';
+    echo 'window.location.href = "../html/LoginPage.html";';
     echo '</script>';
-    exit(); // Make sure to exit after the script to prevent further execution
+    exit();
 }
 
 

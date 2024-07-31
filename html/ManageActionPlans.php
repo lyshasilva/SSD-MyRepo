@@ -17,247 +17,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Manage Goals</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
-    
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #fff;
-                margin: 0;
-                padding: 0;
-            }
-    
-            .header {
-                display: flex;
-                justify-content: flex-end;
-                align-items: center;
-                padding: 30px 28px;
-                background-color: transparent;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                margin-bottom: 20px;
-                gap: 10px;
-            }
-    
-            .header button {
-                margin-left: 18px;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 8px;
-                background: linear-gradient(135deg, #5A4ABD, #78909C);
-                color: white;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-                font-size: 16px;
-            }
-    
-            .header button:hover {
-                background: #D9E4F5;
-                color: #4a3bb3
-            }
-    
-            .logout {
-                margin-left: 40px;
-                margin-right: 62.5px;
-                color: inherit;
-                text-decoration: none;
-                font-size: 16px;
-                cursor: pointer;
-            }
-    
-            .logout:hover {
-                color: #4a3bb3;
-            }
-    
-            .ap-title {
-                font-family: 'Lato', sans-serif;
-                color: black;
-                font-size: 18px;
-                font-weight: 300;
-                margin: 20px 28px;
-            }
-    
-            table {
-                width: calc(100% - 56px);
-                border-collapse: collapse;
-                margin: 20px 28px;
-                font-family: 'Lato', sans-serif;
-                border: 1px solid #ddd;
-                border-collapse: collapse;
-            }
-    
-            tr {
-                width: 30px;
-            }
-    
-            th, td {
-                padding: 10px;
-                text-align: left;
-                border: 1px solid #ddd;
-            }
-    
-            th {
-                background-color: #f4f4f4;
-            }
-    
-            .medium-style {
-                background-color: #e8ebfc;
-            }
-    
-            .medium-style2 {
-                background-color: #D1D1D1;
-            }
-    
-            .input-bar {
-                width: 30%;
-                padding: 10px;
-                font-size: 14px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                background-color: white;
-            }
-    
-            .search-button, .create-button {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 4px;
-                background-color: #595B9B;
-                color: white;
-                cursor: pointer;
-                font-size: 14px;
-                font-weight: 300;
-            }
-    
-            .create-button {
-                margin-left: 160px;
-            }
-    
-            .edit-button, .archive-button {
-                padding: 5px 10px;
-                border: none;
-                border-radius: 4px;
-                background-color: #5A4ABD;
-                color: white;
-                cursor: pointer;
-                font-size: 12px;
-                margin-right: 3px;
-            }
-    
-            .view-button, .copy-button {
-                padding: 5px 10px;
-                border: none;
-                border-radius: 4px;
-                background-color: #5A4ABD;
-                color: white;
-                cursor: pointer;
-                font-size: 12px;
-                margin-right: 3px;
-                display: inline-block;
-            }
-    
-            .row-1 td:first-child {
-                background-color: #FEFEFE;
-            }
-    
-            .row-2 td:first-child {
-                background-color: #e8e8fc;
-            }
-
-            .p-row-2 td:first-child {
-                background-color: #edeef0;
-            }
-
-            /* Modal styles */
-            .modal {
-                display: none;
-                position: fixed;
-                z-index: 1;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                background-color: rgb(0,0,0);
-                background-color: rgba(0,0,0,0.4);
-                padding-top: 60px;
-            }
-    
-            .modal-content {
-                background-color: #fefefe;
-                margin: 5% auto;
-                padding: 20px;
-                border: 1px solid #888;
-                width: 80%;
-                max-width: 500px;
-                border-radius: 10px;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-    
-            .modal-content h2 {
-                width: 100%;
-            }
-    
-            .close {
-                color: #aaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-            }
-    
-            .close:hover,
-            .close:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-    
-            .form-input {
-                width: calc(48% - 10px);
-                padding: 10px;
-                margin: 5px 0;
-                font-size: 14px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                background-color: white;
-            }
-    
-            .form-select {
-                width: calc(48% - 10px);
-                padding: 10px;
-                margin: 5px 0;
-                font-size: 14px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                background-color: white;
-            }
-    
-            .form-full {
-                width: 100%;
-            }
-    
-            .text-details {
-                width: 43.5%;
-                padding-left: 10px;
-                margin: 5px 0;
-                font-size: 14px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                background-color: #f4f4f4;
-                color: #333;
-            }
-
-            .text-fields {
-                padding-left: 7px;
-                font-size: 14px;
-            }
-    
-            .save-button-container {
-                width: 100%;
-                text-align: right;
-            }
-        </style>
+        <title>Manage Action Plans</title>
+        <link rel="stylesheet" href="../css/manage_ap.css">
+        
     </head>
     <body>
         <header>
@@ -271,13 +33,21 @@
             </div>
         </header>
     
-        <div class="ap-title">Sabbath School Action Plans</div>
+        <!-- Dynamic AP Title based on the User's Department -->
+        <!-- Back End Logic is written in ../php/department-autofill.php -->
+        <div class="ap-title"><?php echo $title ; ?> Action Plans</div>
+      
     
         <table>
             <tr>
                 <td colspan="5" class="medium-style">
-                    <input type="text" class="input-bar" placeholder="Search...">
-                    <button class="search-button">Search</button>
+                <form method="GET" action="ManageActionPlans.php" style="display: flex; align-items: center;">
+                    <div style="position: relative; display: inline-block;">
+                        <input type="text" name="search" id="searchInput" class="input-bar" placeholder="Search..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" style="padding-right: 24px;">
+                        <button type="button" id="clearSearch" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer; font-size: 16px; display: <?php echo isset($_GET['search']) && $_GET['search'] != '' ? 'inline' : 'none'; ?>;">&#10005;</button>
+                    </div>
+                    <button type="submit" class="search-button">Search</button>
+                </form>
                     <button class="create-button" id="createAPBtn">Create New AP</button>
                 </td>
             </tr>
@@ -291,26 +61,30 @@
                 <th class="medium-style">Goal</th>
                 <th class="medium-style">Actions</th>
             </tr>
+
+            <!-- dynamic rows -->
             <?php include '../php/current_ap.php'; ?>
-            <!-- Add dynamic rows here as new APs are created -->
+            
         </table>
     
         <!-- The Modal -->
-        <div id="createAPModal" class="modal">
+        <div id="createAPModal" class="modal" style="display: none";>
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>CREATE ACTION PLAN</h2>
                 <form action="../php/create_ap.php" method="post">
                     <input type="text" id="title" name="title" class="form-input" placeholder="Title" required>
+                    <br>
                     <select id="goal" name="goal" class="form-select" required>
                         <option value="" disabled selected>Goal</option>
                         <?php
                         // Get the logged-in user's ID
                             $user_id = $_SESSION['user_id'];
+                            $current_year = date('Y');
 
                             // Prepare and execute the query to fetch the user's goals
-                            $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ? and archived IS NULL");
-                            $stmt->bind_param("i", $user_id);
+                            $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ? and archived IS NULL and year = ?");
+                            $stmt->bind_param("ii", $user_id, $current_year);
                             $stmt->execute();
                             $result = $stmt->get_result();
 
@@ -324,9 +98,11 @@
                             }
                             ?>
                     </select>
-                    <input type="text" id="description" name="description" class="form-input" placeholder="Description" required>           
+                    <br>
                     <div class="text-details" id="textDetails">Text details</div>
-                    <p class="text-fields">Budget</p>
+                    <textarea id="description" name="description" class="form-input" placeholder="Enter description..." required></textarea>          
+                    
+                    <!--<p class="text-fields">Budget</p>-->
                     <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
                     <input type="text" id="budget" name="budget" class="form-input" placeholder="ex: 2000" required>
                     <br>
@@ -339,8 +115,218 @@
                 </form>
             </div>
         </div>
-    
+
         <script>
+           document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById("createAPModal");
+    var btn = document.getElementById("createAPBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    // Ensure modal and button exist
+    if (modal && btn) {
+        console.log("createAPModal and createAPBtn are present.");
+        
+        btn.onclick = function() {
+            if (modal) {
+                modal.style.display = "block";
+                console.log("Create AP modal displayed.");
+            } else {
+                console.error("Modal element not found when clicking the button.");
+            }
+        }
+
+        // Close the modal when the user clicks on <span> (x)
+        if (span) {
+            span.onclick = function() {
+                if (modal) {
+                    modal.style.display = "none";
+                    console.log("Create AP modal hidden.");
+                } else {
+                    console.error("Modal element not found when closing.");
+                }
+            }
+        } else {
+            console.error("Close button not found.");
+        }
+
+        // Close the modal when the user clicks anywhere outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                console.log("Modal hidden by clicking outside.");
+            }
+        }
+    } else {
+        console.error("createAPModal or createAPBtn is not present.");
+    }
+
+    // Handle goal selection
+    var goalElement = document.getElementById("goal");
+    if (goalElement) {
+        goalElement.onchange = function() {
+            var selectedValue = this.value;
+            var textDetails = document.getElementById("textDetails");
+            if (textDetails) {
+                textDetails.textContent = "Details for " + selectedValue;
+            } else {
+                console.error("Text details element not found.");
+            }
+        }
+    } else {
+        console.error("Goal select element not found.");
+    }
+});
+
+        </script>
+
+        <!-- Archive AP Confirmation Modal-->
+<div id="archiveAPModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h2>Confirm Archiving this AP</h2>
+        <p>Are you sure you want to archive this ACTION PLAN?</p>
+        <button id="confirmYes">Yes</button>
+        <button id="confirmNo">No</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Attach click event listener to archive buttons
+    document.querySelectorAll('.archive-action-plan-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const actionPlanId = this.dataset.actionPlanId;
+            const actionPlanTitle = this.dataset.actionPlanTitle;
+
+            if (confirm('Are you sure you want to archive this action plan?')) {
+                // Create a form dynamically
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '../php/archive_ap.php';
+
+                // Add hidden input fields
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = 'id';
+                inputId.value = actionPlanId;
+                form.appendChild(inputId);
+
+                const inputTitle = document.createElement('input');
+                inputTitle.type = 'hidden';
+                inputTitle.name = 'title';
+                inputTitle.value = actionPlanTitle;
+                form.appendChild(inputTitle);
+
+                // Append form to the body and submit
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+
+
+
+        <!-- Copy Action Plan Modal -->
+         
+<div id="copyAPModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>COPY ACTION PLAN</h2>
+        <form id="copyActionPlanForm" action="../php/copy_ap.php" method="post">
+            <!-- Hidden field to store action plan ID -->
+            <input type="hidden" id="action_plan_id" name="action_plan_id">
+            <input type="text" id="ap_title" name="title" class="form-input" placeholder="Title" required>
+            <select id="ap_goal" name="goal" class="form-select" required>
+                <option value="" disabled selected>Goal</option>
+                <?php
+                // Fetch goals for the current year or other necessary data
+                $user_id = $_SESSION['user_id'];
+                $current_year = date('Y');
+
+                // Prepare and execute the query to fetch the user's goals
+                $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ? AND archived IS NULL AND year = ?");
+                $stmt->bind_param("ii", $user_id, $current_year);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                // Check if any goals were found and populate the dropdown
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</option>';
+                    }
+                } else {
+                    echo '<option value="" disabled>No goals found</option>';
+                }
+                ?>
+            </select>
+            <input type="text" id="ap_description" name="description" class="form-input" placeholder="Description" required>
+            <div class="text-details" id="textDetails">Text details</div>
+            <p class="text-fields">Budget</p>
+            <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
+            <input type="text" id="ap_budget" name="budget" class="form-input" placeholder="ex: 2000" required>
+            <br>
+            <!-- Placeholder for additional fields -->
+            
+            <div class="save-button-container">
+                <button type="submit" class="create-button">Save AP</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var copyActionPlanModal = document.getElementById("copyAPModal");
+    var copyActionPlanSpan = copyActionPlanModal.getElementsByClassName("close")[0];
+
+    // Close the modal when the user clicks on <span> (x)
+    copyActionPlanSpan.onclick = function() {
+        copyActionPlanModal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks anywhere outside of it
+    window.onclick = function(event) {
+        if (event.target == copyActionPlanModal) {
+            copyActionPlanModal.style.display = "none";
+        }
+    }
+/*
+    document.querySelectorAll('.copy-action-plan-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var actionPlanId = this.getAttribute('action_plan_id'); // data-action-plan-id attribute is set on button
+            fetchCopyActionPlanDetails(actionPlanId);
+        });
+    });*/
+
+    
+});
+</script>
+
+    
+        
+ 
+    <!--Previous Action Plans Table-->
+    <div class="previous-aps-section">
+        <div class="toggle-table">
+            <span id="toggleChevron" class="chevron" onclick="toggleTable()">▼</span> 
+        </div>
+        <table id="previousAPsTable" style="display: table;">
+            <tr>
+                <th class="medium-style2">Previous APs</th>
+                <th class="medium-style2">Description</th>
+                <th class="medium-style2">Budget</th>
+                <th class="medium-style2">Goal</th>
+                <th class="medium-style2">Actions</th>
+            </tr>
+            <?php include '../php/previous_ap.php'; ?>
+            
+        </table>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>/*
             // Get the modal
             var modal = document.getElementById("createAPModal");
     
@@ -369,50 +355,9 @@
                 var textDetails = document.getElementById("textDetails");
                 textDetails.textContent = "Details for " + selectedValue;
             }
-        </script>
-
- 
-    <!--Previous Action Plans Table-->
-    <div class="previous-aps-section">
-        <div class="toggle-table">
-            <span id="toggleChevron" class="chevron" onclick="toggleTable()">▶</span> 
-        </div>
-        <table id="previousAPsTable" style="display: none;">
-            <tr>
-                <th class="medium-style2">Previous APs</th>
-                <th class="medium-style2">Description</th>
-                <th class="medium-style2">Budget</th>
-                <th class="medium-style2">Goal</th>
-                <th class="medium-style2">Actions</th>
-            </tr>
-            <!-- Example rows, replace with your actual data -->
-            <tr class="row-1">
-                <td>Previous AP 1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button class="view-button">View</button>
-                    <button class="copy-button">Copy</button>
-                    <button class="archive-button">Archive</button>
-                </td>
-            </tr>
-            <tr class="p-row-2">
-                <td>Previous AP 2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button class="view-button">View</button>
-                    <button class="copy-button">Copy</button>
-                    <button class="archive-button">Archive</button>
-                </td>
-            </tr>
-            <!-- Add more rows as needed -->
-        </table>
-    </div>
     
-    <script>
+
+
         function toggleTable() {
             var table = document.getElementById("previousAPsTable");
             var chevron = document.getElementById("toggleChevron");
@@ -424,8 +369,241 @@
                 table.style.display = "none";
                 chevron.textContent = "▶";
             }
-        }
+        }*/
     </script>
+
+<script>
+    /*
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the modal
+        var createModal = document.getElementById("createAPModal");
+        var copyModal = document.getElementById("copyAPModal");
+
+        // Ensure modals exist
+        if (!createModal || !copyModal) {
+            console.error("One or both modal elements not found");
+            return;
+        }
+
+        // Get the close buttons and close functionality
+        var closeCreateModal = createModal.getElementsByClassName("close")[0];
+        var closeCopyModal = copyModal.getElementsByClassName("close")[0];
+
+        if (closeCreateModal) {
+            closeCreateModal.onclick = function() {
+                createModal.style.display = "none";
+            }
+        } else {
+            console.error("Close button for createAPModal not found");
+        }
+
+        if (closeCopyModal) {
+            closeCopyModal.onclick = function() {
+                copyModal.style.display = "none";
+            }
+        } else {
+            console.error("Close button for copyAPModal not found");
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == createModal) {
+                createModal.style.display = "none";
+            } else if (event.target == copyModal) {
+                copyModal.style.display = "none";
+            }
+        }
+
+        // Open create action plan modal
+        var createAPBtn = document.getElementById("createAPBtn");
+        if (createAPBtn) {
+            createAPBtn.onclick = function() {
+                createModal.style.display = "block";
+            }
+        } else {
+            console.error("Create Action Plan button not found");
+        }
+
+        // Handle goal selection
+        var goalElement = document.getElementById("goal");
+        if (goalElement) {
+            goalElement.onchange = function() {
+                var selectedValue = this.value;
+                var textDetails = document.getElementById("textDetails");
+                if (textDetails) {
+                    textDetails.textContent = "Details for " + selectedValue;
+                }
+            }
+        } else {
+            console.error("Goal select element not found");
+        }
+
+        // Function to handle copying an action plan
+        window.copyActionPlan = function(form) {
+            Swal.fire({
+                title: 'Choose an Option',
+                text: 'Would you like to create a new goal or choose from the existing ones?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Create New Goal',
+                cancelButtonText: 'Choose Existing Goal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'create_goal.php';
+                } else if (result.isDismissed) {
+                    copyModal.style.display = "block";
+                }
+            }).catch(error => {
+                console.error('Swal.fire error:', error);
+            });
+        }
+    });
+
+    function toggleTable() {
+        var table = document.getElementById("previousAPsTable");
+        var chevron = document.getElementById("toggleChevron");
+
+        if (table.style.display === "none") {
+            table.style.display = "table";
+            chevron.textContent = "▼";
+        } else {
+            table.style.display = "none";
+            chevron.textContent = "▶";
+        }
+    }*/
+</script>
+
+    
+      <!-- The Edit Action Plan Modal -->
+<div id="editAPModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Action Plan</h2>
+        <form id="editForm" action="../php/edit_ap.php" method="post">
+            <input type="hidden" id="editActionPlanId" name="action_plan_id">
+            <input type="text" id="editActionPlanTitle" name="title" class="form-input" placeholder="Title" required>
+            <select id="editActionPlanGoal" name="goal" class="form-select" required>
+                <option value="" disabled selected>Goal</option>
+                <?php
+                // Get the logged-in user's ID
+                $user_id = $_SESSION['user_id'];
+                $current_year = date('Y');
+
+                // Prepare and execute the query to fetch the user's goals
+                $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ? AND archived IS NULL AND year = ?");
+                $stmt->bind_param("ii", $user_id, $current_year);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                // Check if any goals were found and populate the dropdown
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</option>';
+                    }
+                } else {
+                    echo '<option value="" disabled>No goals found</option>';
+                }
+                ?>
+            </select>
+            <input type="text" id="editActionPlanDescription" name="edit_ap_description" class="form-input" placeholder="Description" required>
+            <div class="text-details" id="textDetails">Text details</div>
+            <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
+            <p class="text-fields">Budget</p>
+            <input type="text" id="editActionPlanBudget" name="budget" class="form-input" placeholder="ex: 2000" required>
+            <br>
+            <div class="save-button-container">
+                <button type="submit" class="create-button">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var editActionPlanModal = document.getElementById("editAPModal");
+    var editActionPlanSpan = editActionPlanModal.getElementsByClassName("close")[0];
+
+    // Close the modal when the user clicks on <span> (x)
+    editActionPlanSpan.onclick = function() {
+        editActionPlanModal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks anywhere outside of it
+    window.onclick = function(event) {
+        if (event.target == editActionPlanModal) {
+            editActionPlanModal.style.display = "none";
+        }
+    }
+
+    document.querySelectorAll('.edit-action-plan-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var actionPlanId = this.getAttribute('data-action-plan-id'); // data-action-plan-id attribute is set on button
+            fetchEditActionPlanDetails(actionPlanId);
+        });
+    });
+
+    function fetchEditActionPlanDetails(actionPlanId) {
+        fetch(`../php/view_action_plan.php?id=${actionPlanId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    populateEditActionPlanModal(data);
+                    editActionPlanModal.style.display = "block";
+                }
+            })
+            .catch(error => console.error('Error fetching action plan details:', error));
+    }
+
+    function populateEditActionPlanModal(actionPlan) {
+        document.getElementById("editActionPlanId").value = actionPlan.id;
+        document.getElementById("editActionPlanTitle").value = actionPlan.title;
+        document.getElementById("editActionPlanDescription").value = actionPlan.ap_description;
+        document.getElementById("editActionPlanBudget").value = actionPlan.budget;
+        document.getElementById("editActionPlanGoal").value = actionPlan.goal;
+    }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.view-action-plan-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var actionPlanId = this.dataset.actionPlanId; // Assuming data-action-plan-id attribute is set on button
+            fetchActionPlanDetails(actionPlanId);
+        });
+    });
+
+    function fetchActionPlanDetails(actionPlanId) {
+        fetch(`../php/view_action_plan.php?id=${actionPlanId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    Swal.fire('Error', data.error, 'error');
+                } else {
+                    displayActionPlanDetails(data);
+                }
+            })
+            .catch(error => console.error('Error fetching Action Plan details:', error));
+    }
+
+    function displayActionPlanDetails(actionPlan) {
+        Swal.fire({
+            title: 'Action Plan Details',
+            html: `
+                <p><strong>Action Plan ID:</strong> ${actionPlan.id}</p>
+                <p><strong>Title:</strong> ${actionPlan.title}</p>
+                <p><strong>Description:</strong> ${actionPlan.ap_description}</p>
+                <p><strong>Goal:</strong> ${actionPlan.goal}</p>
+                <p><strong>Department:</strong> ${actionPlan.department}</p>
+                <p><strong>Total Budget:</strong> ${actionPlan.budget}</p>
+            `,
+            confirmButtonText: 'OK'
+        });
+    }
+});
+</script>
     
     <script>
         // Function to simulate viewing a AP (replace with actual functionality later)

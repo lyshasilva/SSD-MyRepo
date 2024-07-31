@@ -44,7 +44,7 @@
             $types = "ssss"; // All parameters are strings
         } else {
             // Code to only display the current year's unarchived records under the user's department
-            $sql = "SELECT id, title, initiative, targets, total_budget FROM goal WHERE archived IS NULL AND department = ? AND year = ?";
+            $sql = "SELECT id, title, initiative, targets, total_budget FROM goal WHERE archived IS NULL AND department = ? AND year = ? ORDER BY id DESC";
             $params = [$department, $current_year];
             $types = "si"; // department is a string, current_year is an integer
         }
@@ -92,3 +92,4 @@
     
 
         ?>
+

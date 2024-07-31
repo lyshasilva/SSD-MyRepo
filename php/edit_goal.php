@@ -74,5 +74,5 @@ echo "<script>
 </script>";
 }
 
-mysqli_close($conn);
+//mysqli_close($conn);
 ?>

@@ -34,7 +34,8 @@ $stmt->close();
 $current_year = date('Y');
 
 //code to generate the dynamic title of Goals table in ManageGoals page
-$title = "<div class=\"goal-title\">" . htmlspecialchars($department) . " Department Goals</div>";
+//$title = "<div class=\"page-title\">" . htmlspecialchars($department) . " Department Goals</div>";
+$title = htmlspecialchars($department);
 
 // Check if department is fetched correctly
 if (empty($department)) {
