@@ -248,6 +248,7 @@
         </form>
     </div>
 </div>
+
 <script src="../php/kpidetails.js"></script>
 
 <script>
@@ -409,12 +410,13 @@
 
 
 
+
 <!--PREVIOUS GOALS TABLE-->
 <div class="previous-goals-section">
     <div class="toggle-table">
-        <span id="toggleChevron" class="chevron" onclick="toggleTable()">▶</span> 
+        <span id="toggleChevron" class="chevron" onclick="toggleTable()">▼</span> 
     </div>
-    <table id="previousGoalsTable" style="display: none;">
+    <table id="previousGoalsTable" style="display: table;">
         <tr>
             <th class="medium-style2">Previous Goals</th>
             <th class="medium-style2">Initiative</th>
@@ -517,37 +519,5 @@
         
     </script>
 
-<script>
-    // Function to simulate viewing a goal (replace with actual functionality later)
-    function viewGoal(goalName) {
-        alert("Viewing " + goalName);
-        // Implement actual view functionality when backend is integrated
-    }
-
-    // Function to simulate editing a goal (replace with actual functionality later)
-    function editGoal(goalName) {
-        alert("Editing " + goalName);
-        // Implement actual edit functionality when backend is integrated
-    }
-
-    // Function to simulate copying a goal (replace with actual functionality later)
-    function copyGoal(goalName) {
-        alert("Copying " + goalName);
-        // Implement actual copy functionality when backend is integrated
-    }
-
-    // Function to simulate archiving a goal (replace with actual functionality later)
-    function archiveGoal(goalName) {
-        alert("Archiving " + goalName);
-        // Implement actual archive functionality when backend is integrated
-    }
-
-    // Function to simulate searching for a goal (replace with actual functionality later)
-    function searchGoal() {
-        var searchQuery = document.getElementById("searchInput").value;
-        alert("Searching for " + searchQuery);
-        // Implement actual search functionality when backend is integrated
-    }
-</script>
 </body>
 </html>

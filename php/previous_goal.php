@@ -14,7 +14,7 @@
 include('db.php');
             
 
-            $sql = "SELECT id, title, initiative, targets, total_budget FROM goal WHERE archived IS NULL AND department = ? AND year < ? ORDER BY id DESC";
+            $sql = "SELECT id, title, initiative, targets, total_budget, created_at FROM goal WHERE archived IS NULL AND department = ? AND year < ? ORDER BY created_at DESC";
             $stmt_goals = $conn->prepare($sql);
 
             // Bind parameters
