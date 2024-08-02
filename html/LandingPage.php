@@ -4,6 +4,7 @@
     Comments of F Developer:  /* Adjust as needed */ -->
 
     <?php include('../php/anti-shortcut_ssd.php'); ?>
+    <?php include('../php/department-autofill.php'); ?>
     
     <!DOCTYPE html>
     <html lang="en">
@@ -108,7 +109,7 @@
     <body>
         <header>
             <div class="header-container">
-                <h1 class="greetings">Welcome, <span id="username">User</span></h1>
+                <h1 class="greetings">Welcome, <span id="username"><?php echo $first_name ; ?></span></h1>
                 <form method="post" class="logout">
                     <button type="submit" name="logout" class="logout">Logout</button>
                 </form>

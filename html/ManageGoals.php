@@ -74,22 +74,20 @@
                         </div>
                         <button type="submit" class="search-button">Search</button>
                     </form>-->
-                    <form method="GET" action="ManageGoals.php" style="display: inline-block"; >
-                        <div style="width: 150%; display: flex; flex-direction: row;">
-                            <input type="text" name="search" id="searchInput" class="input-bar" placeholder="Search..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-                            <div style = "position: relative;">
-                                <button type="button" id="clearSearch" 
-                                    style=" position: absolute; left: 5px; top:8px; width: 26px; display: 
-                                            <?php echo isset($_GET['search']) && $_GET['search'] != '' ? 'inline' : 'none'; ?>;">
-                                            &#10005;
-                                </button>
-                            </div>
-                        
-                            <button type="submit" class="search-button" style="margin-left: 45px">Search</button>
+                <form method="GET" action="ManageGoals.php" style="display: inline-block"; >
+                    <div style="width: 150%; display: flex; flex-direction: row;">
+                        <input type="text" name="search" id="searchInput" class="input-bar" placeholder="Search..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                        <div style = "position: relative;">
+                            <button type="button" id="clearSearch" 
+                                style="position: absolute; left: 5px; top:8px; width: 26px; display: 
+                                        <?php echo isset($_GET['search']) && $_GET['search'] != '' ? 'inline' : 'none'; ?>;">
+                                        &#10005;
+                            </button>
                         </div>
-                    </form>
-                    <button class="create-button" id="createGoalBtn">Create New Goal</button>
-                    
+                        <button type="submit" class="search-button" style="margin-left: 45px">Search</button>
+                    </div>
+                </form>
+                <button class="create-button" id="createGoalBtn">Create New Goal</button>     
             </td>
         </tr>
             <tr>
@@ -155,8 +153,11 @@
             <label for="department" class="modal-label">Department:</label>
             <input type="text" id="department" name="department" class="form-input-readonly2c" value="<?php echo htmlspecialchars($department); ?>" readonly required>
             <br>
-            <label for="targets" class="modal-label">Targets:</label>
-            <input type="text" id="targets" name="targets" class="form-input-1" required>
+            <label for="targets" class="modal-label">Target Title:</label>
+            <input type="text" id="targets" name="targets" class="form-input-2" required>
+            <br>
+            <label for="target_value" class="modal-label">Target Value: </label>
+            <input type="number" id="target_value" name="target_value" class="form-input-2c" required>
             <br>
             <label for="totalBudget" class="modal-label">Total Budget:</label>
             <input type="number" id="totalBudget" name="totalBudget" class="form-input-readonly"  value="0" readonly required>
@@ -210,8 +211,17 @@
             <label for="editDepartment" class="modal-label">Department:</label>
             <input type="text" id="editDepartment" name="department" class="form-input-readonly2c" placeholder="Department" readonly required>
             <br>
+            <!--
             <label for="editTargets" class="modal-label">Targets:</label>
             <input type="text" id="editTargets" name="targets" class="form-input-1" placeholder="Targets" required>
+            <br>
+                -->
+            
+            <label for="editTargets" class="modal-label">Target Title:</label>
+            <input type="text" id="editTargets" name="targets" class="form-input-2" required>
+            <br>
+            <label for="editTarget_value" class="modal-label">Target Value: </label>
+            <input type="number" id="editTarget_value" name="target_value" class="form-input-2c" required>
             <br>
             <label for="editTotalBudget" class="modal-label">Total Budget:</label>
             <input type="number" id="editTotalBudget" name="totalBudget" class="form-input-readonly" placeholder="Total Budget" readonly required>
@@ -304,6 +314,7 @@
             document.getElementById("editYear").value = goal.year;
             document.getElementById("editDepartment").value = goal.department;
             document.getElementById("editTargets").value = goal.targets;
+            document.getElementById("editTarget_value").value = goal.target_value;
             document.getElementById("editTotalBudget").value = goal.total_budget;
             document.getElementById("editInitiative").value = goal.initiative;
             // document.getElementById("kpiDetails").textContent = "Details for " + goal.initiative;
@@ -509,7 +520,8 @@
             <p><strong>Title:</strong> ${goal.title}</p>
             <p><strong>Year:</strong> ${goal.year}</p>
             <p><strong>Department:</strong> ${goal.department}</p>
-            <p><strong>Targets:</strong> ${goal.targets}</p>
+            <p><strong>Target:</strong> ${goal.targets}</p>
+            <p><strong>Target Value:</strong> ${goal.target_value}</p>
             <p><strong>Total Budget:</strong> ${goal.total_budget}</p>
             <p><strong>Initiative:</strong> ${goal.initiative}</p>
         `;

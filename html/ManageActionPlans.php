@@ -41,13 +41,19 @@
         <table>
             <tr>
                 <td colspan="5" class="medium-style">
-                <form method="GET" action="ManageActionPlans.php" style="display: flex; align-items: center;">
-                    <div style="position: relative; display: inline-block;">
-                        <input type="text" name="search" id="searchInput" class="input-bar" placeholder="Search..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" style="padding-right: 24px;">
-                        <button type="button" id="clearSearch" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer; font-size: 16px; display: <?php echo isset($_GET['search']) && $_GET['search'] != '' ? 'inline' : 'none'; ?>;">&#10005;</button>
-                    </div>
-                    <button type="submit" class="search-button">Search</button>
-                </form>
+                    <form method="GET" action="ManageActionPlans.php" style="display: inline-block"; >
+                        <div style="width: 150%; display: flex; flex-direction: row;">
+                            <input type="text" name="search" id="searchInput" class="input-bar" placeholder="Search..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                            <div style = "position: relative;">        
+                                <button type="button" id="clearSearch" 
+                                    style="position: absolute; left: 5px; top: 8px; width: 26px; display: 
+                                    <?php echo isset($_GET['search']) && $_GET['search'] != '' ? 'inline' : 'none'; ?>;">
+                                                    &#10005;
+                                </button>
+                            </div>
+                            <button type="submit" class="search-button" style="margin-left: 45px">Search</button>
+                        </div>
+                    </form>
                     <button class="create-button" id="createAPBtn">Create New AP</button>
                 </td>
             </tr>
@@ -66,6 +72,35 @@
             <?php include '../php/current_ap.php'; ?>
             
         </table>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const clearSearch = document.getElementById('clearSearch');
+
+            // Show or hide the "X" button based on input value
+            function toggleClearButton() {
+                if (searchInput.value.length > 0) {
+                    clearSearch.style.display = 'inline';
+                } else {
+                    clearSearch.style.display = 'none';
+                }
+            }
+
+            // Event listener to handle clearing the search
+            clearSearch.addEventListener('click', function() {
+                searchInput.value = '';
+                toggleClearButton();
+                window.location.href = 'ManageActionPlans.php';
+            });
+
+            // Initial check for displaying the "X" button
+            toggleClearButton();
+
+            // Update "X" button visibility when input changes
+            searchInput.addEventListener('input', toggleClearButton);
+        });
+    </script>
     
         <!-- The Modal -->
         <div id="createAPModal" class="modal" style="display: none";>

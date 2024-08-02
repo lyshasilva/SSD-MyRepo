@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $year = $_POST['year'];
     $department = $_POST['department'];
     $targets = $_POST['targets'];
+    $target_value= $_POST['target_value'];
     $total_budget = $_POST['totalBudget'];
     $initiative = $_POST['initiative'];
      
@@ -33,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $user_id = $_SESSION['user_id']; // 'user_id' is stored in the session
 
-    $sql = "INSERT INTO goal (title, year, department, targets, total_budget, initiative, user_id)
-            VALUES ('$title', '$year', '$department', '$targets', '$total_budget', '$initiative', '$user_id')";
+    $sql = "INSERT INTO goal (title, year, department, targets, target_value, total_budget, initiative, user_id)
+            VALUES ('$title', '$year', '$department', '$targets', '$target_value', '$total_budget', '$initiative', '$user_id')";
 
     /*if ($conn->query($sql) === TRUE) {
         echo "<script>alert('New goal created successfully'); window.location.href = '../html/ManageGoals.php';</script>";

@@ -88,7 +88,7 @@ th {
 }
 
 .input-bar {
-    width: 30%;
+    width: 100%;
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -108,7 +108,7 @@ th {
 }
 
 .create-button {
-    margin-left: 160px;
+    margin-left: 300px;
 }
 
 .edit-action-plan-button, .archive-action-plan-button {
@@ -122,7 +122,7 @@ th {
     margin-right: 3px;
 }
 
-.view-action-plan-button, .copy-button {
+.view-action-plan-button, .copy-action-plan-button {
     padding: 5px 10px;
     border: none;
     border-radius: 4px;

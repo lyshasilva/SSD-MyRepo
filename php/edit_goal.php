@@ -18,11 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $goal_id = intval($_POST['goal_id']);
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $targets = mysqli_real_escape_string($conn, $_POST['targets']);
+    $target_value = mysqli_real_escape_string($conn, $_POST['target_value']);
     $initiative = mysqli_real_escape_string($conn, $_POST['initiative']);
 
 
     // Prepare update query
-    $query = "UPDATE goal SET title = '$title', targets = '$targets', initiative = '$initiative' WHERE id = $goal_id";
+    $query = "UPDATE goal SET title = '$title', targets = '$targets', target_value = '$target_value', initiative = '$initiative' WHERE id = $goal_id";
 if (mysqli_query($conn, $query)) {
     // Show SweetAlert confirmation
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";

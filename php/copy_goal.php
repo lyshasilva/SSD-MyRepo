@@ -34,11 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['goal_id'])) {
         $goal = $result->fetch_assoc();
 
         // Insert new goal with copied details
-        $copy_query = "INSERT INTO goal (title, initiative, targets, total_budget, department, year, user_id)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $copy_query = "INSERT INTO goal (title, initiative, targets, target_value, total_budget, department, year, user_id)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $current_year = date('Y');
         $stmt_copy = $conn->prepare($copy_query);
-        $stmt_copy->bind_param("sssssii", $goal['title'], $goal['initiative'], $goal['targets'], $goal['total_budget'], $goal['department'], $current_year, $user_id);
+        $stmt_copy->bind_param("sssissii", $goal['title'], $goal['initiative'], $goal['targets'], $goal['target_value'], $goal['total_budget'], $goal['department'], $current_year, $user_id);
         $stmt_copy->execute();
 /*
         if ($stmt_copy->affected_rows > 0) {

@@ -11,6 +11,7 @@ Description: ANTI-SHORTCUT AND LOG OUT FEATURES
 // Start the session
 session_start();
 
+
 // Check if the user is logged in
 if (!isset($_SESSION['logged_in'])) {
     // User is not logged in, redirect to login page

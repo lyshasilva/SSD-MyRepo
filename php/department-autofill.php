@@ -37,9 +37,25 @@ $current_year = date('Y');
 //$title = "<div class=\"page-title\">" . htmlspecialchars($department) . " Department Goals</div>";
 $title = htmlspecialchars($department);
 
+$sql2 = "SELECT first_name FROM user WHERE user_id = ?";
+$stmt2 = $conn->prepare($sql2);
+$stmt2->bind_param("i", $userId);
+$stmt2->execute();
+$stmt2->bind_result($first_name);
+$stmt2->fetch();
+$stmt2->close();
+
+$first_name = htmlspecialchars($first_name);
+
+
 // Check if department is fetched correctly
 if (empty($department)) {
     echo "department-autofill.php : Department not found for user ID: $userId";
+    exit; // Exit or handle accordingly
+}
+
+if (empty($first_name)) {
+    echo "department-autofill.php : First name not found for user ID: $userId";
     exit; // Exit or handle accordingly
 }
 ?>
