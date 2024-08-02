@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!$update_goal_query) {
             die('Prepare failed: ' . $conn->error);
         }
-        $update_goal_query->bind_param('dii', $old_budget, $budget, $old_goal_id, $user_id);
+        $update_goal_query->bind_param('ddii', $old_budget, $budget, $old_goal_id, $user_id);
         if (!$update_goal_query->execute()) {
             die('Execute failed: ' . $update_goal_query->error);
         }

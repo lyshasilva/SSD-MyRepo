@@ -97,7 +97,7 @@
                 <th class="medium-style">Current Goals</th>
                 <th class="medium-style">Initiative</th>
                 <th class="medium-style">Target</th>
-                <th class="medium-style">Budget</th>
+                <th class="medium-style">Total Budget</th>
                 <th class="medium-style">Actions</th>
             </tr>
 
@@ -432,7 +432,7 @@
             <th class="medium-style2">Previous Goals</th>
             <th class="medium-style2">Initiative</th>
             <th class="medium-style2">Target</th>
-            <th class="medium-style2">Budget</th>
+            <th class="medium-style2">Total Budget</th>
             <th class="medium-style2">Actions</th>
         </tr>
 

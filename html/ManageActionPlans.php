@@ -108,10 +108,12 @@
                 <span class="close">&times;</span>
                 <h2>CREATE ACTION PLAN</h2>
                 <form action="../php/create_ap.php" method="post">
-                    <input type="text" id="title" name="title" class="form-input" placeholder="Title" required>
+                    <label for= "title" class="modal-label">Title:</label>
+                    <input type="text" id="title" name="title" class="form-input-1" placeholder="Title" required>
                     <br>
+                    <label for= "goal" class="modal-label">Goal:</label>
                     <select id="goal" name="goal" class="form-select" required>
-                        <option value="" disabled selected>Goal</option>
+                        <option value="" disabled selected> SELECT Goal</option>
                         <?php
                         // Get the logged-in user's ID
                             $user_id = $_SESSION['user_id'];
@@ -135,11 +137,17 @@
                     </select>
                     <br>
                     <div class="text-details" id="textDetails">Text details</div>
+                    <br>
+                    <label for= "description" class="modal-label">Description:</label>
                     <textarea id="description" name="description" class="form-input" placeholder="Enter description..." required></textarea>          
                     
                     <!--<p class="text-fields">Budget</p>-->
+                    <br>
+                    <label for= "department" class="modal-label">Department:</label>
                     <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
-                    <input type="text" id="budget" name="budget" class="form-input" placeholder="ex: 2000" required>
+                    <br>
+                    <label for= "budget" class="modal-label">Budget:</label>
+                    <input type="text" id="budget" name="budget" class="form-input-1" placeholder="ex: 2000" required>
                     <br>
                         <!-- Placeholder for Goal selections -->
                     </select>

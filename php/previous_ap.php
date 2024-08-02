@@ -26,7 +26,7 @@ while ($row = $goal_result->fetch_assoc()) {
 }
 
 if (empty($goal_ids)) {
-    echo "<tr><td colspan='5'>No action plans available for the current year.</td></tr>";
+    echo "<tr><td colspan='5'>No action plans available for the previous year.</td></tr>";
 } else {
     // Prepare and execute the query to get action plans and join with goals to get the goal title
     $goal_ids_placeholders = implode(',', array_fill(0, count($goal_ids), '?'));
