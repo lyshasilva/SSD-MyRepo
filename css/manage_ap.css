@@ -18,7 +18,21 @@ body {
     gap: 10px;
 }
 
-.header button {
+.thispagebuttons {
+    margin-left: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #D9E4F5;
+    color: #4a3bb3;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    border: 2px solid #d4d3dd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pagebuttons {
     margin-left: 18px;
     padding: 10px 20px;
     border: none;
@@ -30,10 +44,11 @@ body {
     font-size: 16px;
 }
 
-.header button:hover {
+.pagebuttons:hover {
     background: #D9E4F5;
     color: #4a3bb3
 }
+
 
 .logout {
     margin-left: 40px;
@@ -42,6 +57,8 @@ body {
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
+    border: none;
+    background: none;
 }
 
 .logout:hover {

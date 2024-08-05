@@ -24,12 +24,12 @@
     <body>
         <header>
             <div class="header">
-                <button onclick="location.href='ManageGoals.php'">Manage Goals</button>
-                <button onclick="location.href='ManageActionPlans.php'">Manage AP</button>
-                <button onclick="location.href='ViewReports.php'">View Reports</button>
+            <button class="pagebuttons" onclick="location.href='ManageGoals.php'">Manage Goals</button>
+            <button class="thispagebuttons" onclick="location.href='ManageActionPlans.php'">Manage AP</button>
+            <button class="pagebuttons" onclick="location.href='ViewReports.php'">View Reports</button>
                 <form method="post" class="logout">
-                    <button type="submit" name="logout" class="logout">Log Out</button>
-            </form>
+                    <button type="submit" name="logout" class="logout">Logout</button>
+                </form>
             </div>
         </header>
     
@@ -111,6 +111,10 @@
                     <label for= "title" class="modal-label">Title:</label>
                     <input type="text" id="title" name="title" class="form-input-1" placeholder="Title" required>
                     <br>
+                    <label for= "description" class="modal-label">Description:</label>
+                    <br>
+                    <textarea id="description" name="description" class="form-input" placeholder="Enter description..." required></textarea>          
+                    <br>
                     <label for= "goal" class="modal-label">Goal:</label>
                     <select id="goal" name="goal" class="form-select" required>
                         <option value="" disabled selected> SELECT Goal</option>
@@ -138,11 +142,9 @@
                     <br>
                     <div class="text-details" id="textDetails">Text details</div>
                     <br>
-                    <label for= "description" class="modal-label">Description:</label>
-                    <textarea id="description" name="description" class="form-input" placeholder="Enter description..." required></textarea>          
-                    
+                   
                     <!--<p class="text-fields">Budget</p>-->
-                    <br>
+            
                     <label for= "department" class="modal-label">Department:</label>
                     <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
                     <br>

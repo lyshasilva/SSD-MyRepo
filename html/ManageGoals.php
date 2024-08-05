@@ -32,17 +32,13 @@
 <body>
     <header>
         <div class="header">
-            <button class="pagebuttons" onclick="location.href='ManageGoals.php'">Manage Goals</button>
+            <button class="thispagebuttons" onclick="location.href='ManageGoals.php'">Manage Goals</button>
             <button class="pagebuttons" onclick="location.href='ManageActionPlans.php'">Manage AP</button>
             <button class="pagebuttons" onclick="location.href='ViewReports.php'">View Reports</button>
             <form method="post" class="logout">
-                    <button type="submit" name="logout" class="logout">Log Out</button>
+                    <button type="submit" name="logout" class="logout">Logout</button>
             </form>
-        <!--
-            <div class="logout">
-                <a href="#" class="logout">Logout</a>
-            </div>
-        -->
+  
         </div>
     </header>
 
