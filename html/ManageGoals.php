@@ -341,14 +341,7 @@
 </script>
 
 <!-- Archive Confirmation Modal-->
-<div id="archiveModal" class="modal" style="display:none;">
-    <div class="modal-content">
-        <h2>Confirm Archiving</h2>
-        <p>Are you sure you want to archive this goal?</p>
-        <button id="confirmYes">Yes</button>
-        <button id="confirmNo">No</button>
-    </div>
-</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
