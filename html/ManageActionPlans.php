@@ -107,13 +107,13 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>CREATE ACTION PLAN</h2>
-                <form action="../php/create_ap.php" method="post">
+                <form action="../php/create_ap.php" method="post" class="create-ap">
                     <label for= "title" class="modal-label">Title:</label>
-                    <input type="text" id="title" name="title" class="form-input-1" placeholder="Title" required>
+                    <input type="text" id="title" name="title" class="form-input-1" required>
                     <br>
                     <label for= "description" class="modal-label">Description:</label>
                     <br>
-                    <textarea id="description" name="description" class="form-input" placeholder="Enter description..." required></textarea>          
+                    <textarea id="description" name="description" class="description" required></textarea>          
                     <br>
                     <label for= "goal" class="modal-label">Goal:</label>
                     <select id="goal" name="goal" class="form-select" required>
@@ -124,7 +124,7 @@
                             $current_year = date('Y');
 
                             // Prepare and execute the query to fetch the user's goals
-                            $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ? and archived IS NULL and year = ?");
+                            $stmt = $conn->prepare("SELECT id, title, targets, initiative FROM goal WHERE user_id = ? and archived IS NULL and year = ?");
                             $stmt->bind_param("ii", $user_id, $current_year);
                             $stmt->execute();
                             $result = $stmt->get_result();
@@ -132,7 +132,7 @@
                             // Check if any goals were found and populate the dropdown
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</option>';
+                                    echo '<option value="' . $row['id'] . '" data-initiative="' . htmlspecialchars($row['initiative']) . '" data-target="' . htmlspecialchars($row['targets']) . '">' . htmlspecialchars($row['title']) . '</option>';
                                 }
                             } else {
                                 echo '<option value="" disabled>No goals found</option>';
@@ -140,7 +140,7 @@
                             ?>
                     </select>
                     <br>
-                    <div class="text-details" id="textDetails">Text details</div>
+                    <div class="text-details" id="textDetails">Goal details will appear here.</div>
                     <br>
                    
                     <!--<p class="text-fields">Budget</p>-->
@@ -149,7 +149,7 @@
                     <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
                     <br>
                     <label for= "budget" class="modal-label">Budget:</label>
-                    <input type="text" id="budget" name="budget" class="form-input-1" placeholder="ex: 2000" required>
+                    <input type="text" id="budget" name="budget" class="form-input-2c" required>
                     <br>
                         <!-- Placeholder for Goal selections -->
                     </select>
@@ -209,13 +209,14 @@
     var goalElement = document.getElementById("goal");
     if (goalElement) {
         goalElement.onchange = function() {
-            var selectedValue = this.value;
+            var selectedOption = this.options[this.selectedIndex];
+            var initiative = selectedOption.getAttribute('data-initiative');
+            var target = selectedOption.getAttribute('data-target');
             var textDetails = document.getElementById("textDetails");
             if (textDetails) {
-                textDetails.textContent = "Details for " + selectedValue;
-            } else {
-                console.error("Text details element not found.");
+                textDetails.textContent = "Initiative: " + initiative + " | Target: " + target;
             }
+        
         }
     } else {
         console.error("Goal select element not found.");
@@ -225,45 +226,65 @@
         </script>
 
         <!-- Archive AP Confirmation Modal-->
-<div id="archiveAPModal" class="modal" style="display:none;">
-    <div class="modal-content">
-        <h2>Confirm Archiving this AP</h2>
-        <p>Are you sure you want to archive this ACTION PLAN?</p>
-        <button id="confirmYes">Yes</button>
-        <button id="confirmNo">No</button>
-    </div>
-</div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Attach click event listener to archive buttons
-    document.querySelectorAll('.archive-action-plan-button').forEach(button => {
-        button.addEventListener('click', function () {
-            const actionPlanId = this.dataset.actionPlanId;
-            const actionPlanTitle = this.dataset.actionPlanTitle;
+$(document).ready(function() {
+    // Attach the confirmArchive function to buttons with the class 'archive-action-plan-button'
+    $('.archive-action-plan-button').on('click', function(event) {
+        event.preventDefault(); // Prevent default button behavior
+        
+        const actionPlanId = $(this).data('action-plan-id');
+        const actionPlanTitle = $(this).data('action-plan-title');
 
-            if (confirm('Are you sure you want to archive this action plan?')) {
-                // Create a form dynamically
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '../php/archive_ap.php';
-
-                // Add hidden input fields
-                const inputId = document.createElement('input');
-                inputId.type = 'hidden';
-                inputId.name = 'id';
-                inputId.value = actionPlanId;
-                form.appendChild(inputId);
-
-                const inputTitle = document.createElement('input');
-                inputTitle.type = 'hidden';
-                inputTitle.name = 'title';
-                inputTitle.value = actionPlanTitle;
-                form.appendChild(inputTitle);
-
-                // Append form to the body and submit
-                document.body.appendChild(form);
-                form.submit();
+        Swal.fire({
+            title: 'Confirm Archiving',
+            text: `Are you sure you want to archive this action plan titled '${actionPlanTitle}'?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Perform the AJAX request
+                $.ajax({
+                    url: '../php/archive_ap.php',
+                    method: 'POST',
+                    data: {
+                        id: actionPlanId,
+                        title: actionPlanTitle
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: 'Archived!',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                location.reload(); // Optional: Reload the page
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: response.message,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'There was an error archiving the action plan.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
             }
         });
     });
@@ -278,10 +299,17 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>COPY ACTION PLAN</h2>
-        <form id="copyActionPlanForm" action="../php/copy_ap.php" method="post">
+        <form id="copyActionPlanForm" action="../php/copy_ap.php" method="post" class="copyAP-form">
             <!-- Hidden field to store action plan ID -->
             <input type="hidden" id="action_plan_id" name="action_plan_id">
-            <input type="text" id="ap_title" name="title" class="form-input" placeholder="Title" required>
+            <label for="ap_title" class="modal-label">Title: </label>
+            <input type="text" id="ap_title" name="title" class="form-input-readonly" placeholder="Title" required>
+            <br>
+            <label for="ap_description" class="modal-label">Description: </label>
+            <br>
+            <textarea id="ap_description" name="description" class="description-readonly" placeholder="Description" required readonly></textarea>
+            <br>
+            <label for="ap_goal" class="modal-label">Goal: </label>
             <select id="ap_goal" name="goal" class="form-select" required>
                 <option value="" disabled selected>Goal</option>
                 <?php
@@ -290,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 $current_year = date('Y');
 
                 // Prepare and execute the query to fetch the user's goals
-                $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ? AND archived IS NULL AND year = ?");
+                $stmt = $conn->prepare("SELECT id, title, targets, initiative FROM goal WHERE user_id = ? AND archived IS NULL AND year = ?");
                 $stmt->bind_param("ii", $user_id, $current_year);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -298,18 +326,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Check if any goals were found and populate the dropdown
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</option>';
+                        echo '<option value="' . $row['id'] . '" data-ap-initiative="' . htmlspecialchars($row['initiative']) . '" data-ap-target="' . htmlspecialchars($row['targets']) . '">' . htmlspecialchars($row['title']) . '</option>';
                     }
                 } else {
                     echo '<option value="" disabled>No goals found</option>';
                 }
                 ?>
             </select>
-            <input type="text" id="ap_description" name="description" class="form-input" placeholder="Description" required>
-            <div class="text-details" id="textDetails">Text details</div>
-            <p class="text-fields">Budget</p>
+            
+            <div class="text-details" id="apTextDetails">Goal details will appear here.</div>
+            <br>
+            <label for="department"class="modal-label">Department: </label>
             <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
-            <input type="text" id="ap_budget" name="budget" class="form-input" placeholder="ex: 2000" required>
+            <br>
+            <label for="ap_budget"class="modal-label">Budget: </label>
+            <input type="text" id="ap_budget" name="budget" class="form-input-readonly" placeholder="ex: 2000" required>
             <br>
             <!-- Placeholder for additional fields -->
             
@@ -335,6 +366,28 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target == copyActionPlanModal) {
             copyActionPlanModal.style.display = "none";
         }
+    }
+    // Handle goal selection
+    var goalElement = document.getElementById("ap_goal");
+    if (goalElement) {
+        console.log("Goal element found.");
+        goalElement.onchange = function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var initiative = selectedOption.getAttribute('data-ap-initiative');
+            var target = selectedOption.getAttribute('data-ap-target');
+            var textDetails = document.getElementById("apTextDetails");
+
+             // Debugging: log values to the console
+            console.log("Selected Option Value: ", selectedOption.value);
+            console.log("Initiative: ", initiative);
+            console.log("Target: ", target);
+
+            if (textDetails) {
+                textDetails.textContent = "Initiative: " + initiative + " | Target: " + target;
+            }
+        }
+    } else {
+        console.error("Goal select element not found.");
     }
 /*
     document.querySelectorAll('.copy-action-plan-button').forEach(function(button) {
@@ -525,9 +578,15 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Edit Action Plan</h2>
-        <form id="editForm" action="../php/edit_ap.php" method="post">
+        <form id="editForm" action="../php/edit_ap.php" method="post" class="create-ap">
             <input type="hidden" id="editActionPlanId" name="action_plan_id">
-            <input type="text" id="editActionPlanTitle" name="title" class="form-input" placeholder="Title" required>
+            <label for="editActionPlanTitle" class="modal-label">Title: </label>
+            <input type="text" id="editActionPlanTitle" name="title" class="form-input-1" placeholder="Title" required>
+            <br>
+            <label for="editActionPlanDescription" class="modal-label">Description: </label>
+            <textarea id="editActionPlanDescription" name="edit_ap_description" class="description" placeholder="Description" required></textarea>
+            <br>
+            <label for="editActionPlanGoal" class="modal-label">Goal: </label>
             <select id="editActionPlanGoal" name="goal" class="form-select" required>
                 <option value="" disabled selected>Goal</option>
                 <?php
@@ -536,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 $current_year = date('Y');
 
                 // Prepare and execute the query to fetch the user's goals
-                $stmt = $conn->prepare("SELECT id, title FROM goal WHERE user_id = ? AND archived IS NULL AND year = ?");
+                $stmt = $conn->prepare("SELECT id, title, targets, initiative FROM goal WHERE user_id = ? AND archived IS NULL AND year = ?");
                 $stmt->bind_param("ii", $user_id, $current_year);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -544,18 +603,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Check if any goals were found and populate the dropdown
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</option>';
+                        echo '<option value="' . $row['id'] . '" data-ap-initiative="' . htmlspecialchars($row['initiative']) . '" data-ap-target="' . htmlspecialchars($row['targets']) . '">' . htmlspecialchars($row['title']) . '</option>';
                     }
                 } else {
                     echo '<option value="" disabled>No goals found</option>';
                 }
                 ?>
             </select>
-            <input type="text" id="editActionPlanDescription" name="edit_ap_description" class="form-input" placeholder="Description" required>
-            <div class="text-details" id="textDetails">Text details</div>
-            <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>
-            <p class="text-fields">Budget</p>
-            <input type="text" id="editActionPlanBudget" name="budget" class="form-input" placeholder="ex: 2000" required>
+            
+            <div class="text-details" id="editAPTextDetails">Goal details will appear here.</div>
+            <br>
+            <label for="department" class="modal-label">Department: </label>
+            <input type="text" id="department" name="department" class="form-input-readonly" placeholder="Department" value="<?php echo htmlspecialchars($department); ?>" readonly required>   
+            <br>
+            <label for="editActionPlanBudget" class="modal-label">Budget: </label>
+            <input type="text" id="editActionPlanBudget" name="budget" class="form-input-2c" placeholder="ex: 2000" required>
             <br>
             <div class="save-button-container">
                 <button type="submit" class="create-button">Save Changes</button>
@@ -596,6 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     populateEditActionPlanModal(data);
                     editActionPlanModal.style.display = "block";
+                    updateGoalDetails();
                 }
             })
             .catch(error => console.error('Error fetching action plan details:', error));
@@ -607,6 +670,28 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("editActionPlanDescription").value = actionPlan.ap_description;
         document.getElementById("editActionPlanBudget").value = actionPlan.budget;
         document.getElementById("editActionPlanGoal").value = actionPlan.goal;
+    }
+
+    function updateGoalDetails() {
+        var goalElement = document.getElementById("editActionPlanGoal");
+        var selectedOption = goalElement.options[goalElement.selectedIndex];
+        var initiative = selectedOption.getAttribute('data-ap-initiative');
+        var target = selectedOption.getAttribute('data-ap-target');
+        var textDetails = document.getElementById("editAPTextDetails");
+
+        if (textDetails) {
+            textDetails.textContent = "Initiative: " + initiative + " | Target: " + target;
+        }
+    }
+
+    // Handle goal selection
+    var goalElement = document.getElementById("editActionPlanGoal");
+    if (goalElement) {
+        goalElement.onchange = function() {
+            updateGoalDetails();
+        }
+    } else {
+        console.error("Goal select element not found.");
     }
 });
 </script>
