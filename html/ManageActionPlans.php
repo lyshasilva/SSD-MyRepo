@@ -700,7 +700,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.view-action-plan-button').forEach(function(button) {
         button.addEventListener('click', function() {
-            var actionPlanId = this.dataset.actionPlanId; // Assuming data-action-plan-id attribute is set on button
+            var actionPlanId = this.dataset.actionPlanId; 
             fetchActionPlanDetails(actionPlanId);
         });
     });

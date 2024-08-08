@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $select_query->close();
 
 
-
     // Update budgets if the goal has changed
     if ($old_goal_id != $new_goal_id) {
         // Subtract the old budget from the old goal's total_budget
@@ -36,7 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ");
         $update_old_goal_query->bind_param('dii', $old_budget, $old_goal_id, $user_id);
         if (!$update_old_goal_query->execute()) {
-            echo "Error updating old goal budget: " . $conn->error;
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Error updating old goal budget: " . $conn->error . "'
+                    }).then(() => {
+                        window.history.back();
+                    });
+                });
+            </script>";
             exit();
         }
         $update_old_goal_query->close();
@@ -49,28 +59,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ");
         $update_new_goal_query->bind_param('dii', $budget, $new_goal_id, $user_id);
         if (!$update_new_goal_query->execute()) {
-            echo "Error updating new goal budget: " . $conn->error;
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Error updating new goal budget: " . $conn->error . "'
+                    }).then(() => {
+                        window.history.back();
+                    });
+                });
+            </script>";
             exit();
         }
         $update_new_goal_query->close();
     } else {
         // Goal hasn't changed, just update the budget on the same goal
-        // Subtract the old budget and add the new budget to the goal's total_budget
         $update_goal_query = $conn->prepare("
             UPDATE goal 
             SET total_budget = total_budget - ? + ? 
             WHERE id = ? AND user_id = ?
         ");
         if (!$update_goal_query) {
-            die('Prepare failed: ' . $conn->error);
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Prepare failed: " . $conn->error . "'
+                    }).then(() => {
+                        window.history.back();
+                    });
+                });
+            </script>";
+            exit();
         }
         $update_goal_query->bind_param('ddii', $old_budget, $budget, $old_goal_id, $user_id);
         if (!$update_goal_query->execute()) {
-            die('Execute failed: ' . $update_goal_query->error);
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Execute failed: " . $update_goal_query->error . "'
+                    }).then(() => {
+                        window.history.back();
+                    });
+                });
+            </script>";
+            exit();
         }
         $update_goal_query->close();
     }
-
 
     // Update the action plan in the database
     $update_query = $conn->prepare("
@@ -78,33 +121,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         SET title = ?, ap_description = ?, budget = ?, goal = ? 
         WHERE id = ? AND user_id = ?
     ");
-
-
- $update_query->bind_param('ssdiii', $title, $ap_description, $budget, $new_goal_id, $action_plan_id, $user_id);
-
-
- if (!$update_query->execute()) {
-    echo "Error updating goal budget: " . $conn->error;
-    exit();
-}
-
-    // Update the action plan in the database
-    $update_query = $conn->prepare("
-        UPDATE action_plan 
-        SET title = ?, ap_description = ?, budget = ? 
-        WHERE id = ? AND user_id = ?
-    ");
-    $update_query->bind_param('ssdii', $title, $ap_description, $budget, $action_plan_id, $user_id);
-
+    $update_query->bind_param('ssdiii', $title, $ap_description, $budget, $new_goal_id, $action_plan_id, $user_id);
     if ($update_query->execute()) {
-        // Redirect back to the page or display success message
-        //header('Location: ../html/ManageActionPlans.php');
-        echo "Action plan updated ";
-        exit();
+        // Show SweetAlert success message
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Action plan updated successfully.'
+                }).then(() => {
+                    window.location.href = '../html/ManageActionPlans.php'; // Redirect to the desired page
+                });
+            });
+        </script>";
     } else {
-        echo "Error updating action plan: " . $conn->error;
+        // Show SweetAlert error message
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Error updating action plan: " . $conn->error . "'
+                }).then(() => {
+                    window.history.back();
+                });
+            });
+        </script>";
     }
-
     $update_query->close();
 }
 

@@ -1,5 +1,7 @@
 <?php
 include('db.php');
+include('anti-shortcut_ssd.php');
+include('department-autofill.php');
 
 header('Content-Type: application/json');
 
@@ -8,8 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'] ?? '';
     $description = $_POST['description'] ?? '';
     $goal = $_POST['goal'] ?? '';
-    $department = $_POST['department'] ?? '';
     $budget = $_POST['budget'] ?? '';
+    $user_id = $_SESSION['user_id'];
     
     // Validate inputs if needed (e.g., check if required fields are empty)
     if (empty($title) || empty($description) || empty($goal) || empty($department) || empty($budget)) {
@@ -18,14 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Prepare the query to insert the new action plan
-    $copy_query = "INSERT INTO action_plan (title, ap_description, goal, department, budget)
-                   VALUES (?, ?, ?, ?, ?)";
+    $copy_query = "INSERT INTO action_plan (title, ap_description, goal, department, budget,user_id)
+                   VALUES (?, ?, ?, ?, ?,?)";
     $stmt_copy = $conn->prepare($copy_query);
     if ($stmt_copy === false) {
         echo json_encode(['error' => 'Error preparing the copy statement: ' . $conn->error]);
         exit;
     }
-    $stmt_copy->bind_param("sssis", $title, $description, $goal, $department, $budget);
+    $stmt_copy->bind_param("ssisii", $title, $description, $goal, $department, $budget, $user_id);
     $stmt_copy->execute();
 
     if ($stmt_copy->affected_rows > 0) {
